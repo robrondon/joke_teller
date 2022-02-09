@@ -1,7 +1,7 @@
 const button = document.getElementById('button');
 const audioElement = document.getElementById('audio');
 
-// VoiceRSS Javascript SDK
+// VoiceRSS Javascript SDK Speech To Voice API
 const VoiceRSS = {
   speech: function (e) {
     this._validate(e), this._request(e);
@@ -105,17 +105,37 @@ const VoiceRSS = {
   },
 };
 
-const test = function () {
-  VoiceRSS.speech({
-    key: 'd009cc41099a4de785efee92f2e2980b',
-    src: 'How you doing?',
-    hl: 'en-us',
-    v: 'Linda',
-    r: 0,
-    c: 'mp3',
-    f: '44khz_16bit_stereo',
-    ssml: false,
-  });
+// const test = function () {
+//   VoiceRSS.speech({
+//     key: 'd009cc41099a4de785efee92f2e2980b',
+//     src: 'How you doing?',
+//     hl: 'en-us',
+//     v: 'Linda',
+//     r: 0,
+//     c: 'mp3',
+//     f: '44khz_16bit_stereo',
+//     ssml: false,
+//   });
+// };
+
+// test();
+
+// Get Jokes from Joke API
+const getJokes = async function () {
+  let joke = '';
+  const apiUrl = 'https://v2.jokeapi.dev/joke/Any';
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    if (data.setup) {
+      joke = `${data.setup} ..... ${data.delivery}`;
+    } else {
+      joke = data.joke;
+    }
+    console.log('joke ->', joke);
+  } catch (error) {
+    console.error('Opps!!', error);
+  }
 };
 
-test();
+getJokes();
